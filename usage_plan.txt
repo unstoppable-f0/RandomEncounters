@@ -1,0 +1,50 @@
+Ask for encounter:
+
+0) Enter Location:
+
+    0) Here we are getting the whole list of locations, where we can choose one of them
+       That's why we need locations (and therefor weather) tables
+
+    1) choose locations (saving to memory, so we can use it in query)
+
+1) Enter Weather -> to query
+
+2) Enter Time -> to query
+
+query -> loc, wt, ti, not done
+get -> name, link,
+change -> done (after approval >> update)
+
+prereq? only as SQL, so I can put it to querry too then
+
+=====> process of getting a result
+
+0) fire query
+1) get result
+2) check if result.prereq
+3) fire check res.prereq
+4) if check - output
+   else - go to 0
+
+   loop? -> if len(res) == 1 -> output + warning
+
+-> future -> converter for
+
+<<========>>
+Relationship
+Should I even do a relationship? Then I'd have to do many tables with
+I don't even need any relationship at all! Just a list with ids (otherwise it's too complicated many to many)
+
+
+<<========>>
+time:
+0 - night
+1 - day
+2 - both
+
+
+<<==========>>
+Хорошо бы выделить было каждую базу данных для отдельного проекта, как это сейчас делается в стримдате
+
+<<=======>>
+Итак, а как лучше было бы
