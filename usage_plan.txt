@@ -15,7 +15,7 @@ query -> loc, wt, ti, not done
 get -> name, link,
 change -> done (after approval >> update)
 
-prereq? only as SQL, so I can put it to querry too then
+prereq? only as SQL, so I can put it to query too then
 
 =====> process of getting a result
 
@@ -44,7 +44,11 @@ time:
 
 
 <<==========>>
-Хорошо бы выделить было каждую базу данных для отдельного проекта, как это сейчас делается в стримдате
+A new database for each project, just like at work
 
 <<=======>>
-Итак, а как лучше было бы
+I guess I'll make personal_ids (unique) column for location-table
+Maybe oneday I can make it that a user can choose between id // personal_id, or even add something
+to maintain order. idk
+
+What if just allow changing of information?

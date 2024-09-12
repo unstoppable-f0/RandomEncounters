@@ -6,4 +6,4 @@ engine = create_engine('postgresql+psycopg://iloginov:postgres@localhost:5433/ra
 
 Base.metadata.create_all(engine)
 # Base.metadata.drop_all(engine)
-# Weather.__table__.drop(engine)
+# Location.__table__.drop(engine)
