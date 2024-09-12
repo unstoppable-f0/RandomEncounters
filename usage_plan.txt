@@ -52,3 +52,7 @@ Maybe oneday I can make it that a user can choose between id // personal_id, or 
 to maintain order. idk
 
 What if just allow changing of information?
+
+
+<<===>>
+What do I do now?
