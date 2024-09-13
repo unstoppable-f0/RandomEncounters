@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, TypeVar
 
 from sqlalchemy import String, Integer
 from sqlalchemy.dialects.postgresql import ARRAY
@@ -9,6 +9,9 @@ from sqlalchemy.orm import mapped_column
 
 class Base(DeclarativeBase):
     pass
+
+
+SQLEntity = TypeVar('SQLEntity', bound=Base)
 
 
 class Location(Base):
