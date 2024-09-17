@@ -5,6 +5,7 @@ from db.sql_queries import (
     update_entity,
     delete_entity,
     delete_all_entities,
+    read_random_encounter
 )
 
 from utils.entities_funcs import print_all_entities, get_all_entities_ids_and_print
@@ -184,6 +185,7 @@ def encounter_menu() -> None:
 
     try:
         choice = int(input("Enter your choice: "))
+        print()
         if choice == 1:
             encounter_dict[choice](Encounter)
         else:
@@ -192,14 +194,16 @@ def encounter_menu() -> None:
         print("Invalid input. Please try again.\n")
 
 
-def add_encounter() -> None:
+def add_encounter_menu() -> None:
     """Adds a new encounter to the database."""
 
     new_encounter = Encounter()
-    print('press Ctrl+D to break the app')
+    print("Let's create a new encounter!"
+          "\n(press Ctrl+D to break the app)\n")
 
     # name part
     new_encounter.name = input('Enter encounter name: ')
+    print('Got the name\n')
 
     # time part
     print('Choose the time of day:\n'
@@ -208,43 +212,59 @@ def add_encounter() -> None:
           'Both - 3\n'
           '(choose only one!)')
 
-    time_of_day = input(': ')
+    time_of_day = input('Enter the time: ')
     # time validation
     if len(time_of_day) == 1 and time_of_day in ('1', '2', '3'):
         new_encounter.time = int(time_of_day)
+        print('Got the time\n')
     else:
         print('Wrong input. Returning to main menu')
 
     # locations part
+    print('Locations ids:')
     all_locs_ids = get_all_entities_ids_and_print(Location)
-    user_locs = input('Choose id(s) of location(s) of the encounter (separated by space if many): ').split()
+    try:
+        user_locs = input('Choose id(s) of location(s) of the encounter (separated by space if many): ').split()
+        user_locs = list(map(int, user_locs))
+    except ValueError:
+        print("Invalid input. Please try again.")
+        return
 
     if set(all_locs_ids).issuperset(set(user_locs)) and len(user_locs) >= 1:
         new_encounter.locations = map(int, user_locs)
+        print('Got the locations')
     else:
         print('Wrong input. Returning to main menu')
+        return
 
     # weather part
     all_weather_ids = get_all_entities_ids_and_print(Weather)
-    user_weather = input('Choose id(s) of weather of the encounter (separated by space if many): ').split()
+    try:
+        user_weather = input('Choose id(s) of weather of the encounter (separated by space if many): ').split()
+        user_weather = list(map(int, user_weather))
+    except ValueError:
+        print('Invalid input. Returning to main menu')
+        return
 
     if set(all_weather_ids).issuperset(set(user_weather)) and len(user_weather) >= 1:
-        new_encounter.weather = map(int, user_weather)
+        new_encounter.weather = user_weather
+        print('Got the weather\n')
     else:
         print('Wrong input. Returning to main menu')
+        return
 
     # link part
-    user_link = input('')
+    new_encounter.link = input('Insert link for the encounter or just press enter to continue.'
+                               '\n(you can always add it later)'
+                               '\nEnter the link:')
+    print()
+    new_encounter.done = False
 
+    # prerequisites-part
+    # TODO prerequisites-part
 
-
-
-
-
-
-
-
-
+    create_entity(new_encounter)
+    print('Encounter added successfully!\n')
 
 
 def delete_all_encounter_menu() -> None:
@@ -258,6 +278,20 @@ def delete_all_encounter_menu() -> None:
         print("Ok, going back to the main menu")
     else:
         print("Invalid input. Going back to the main menu")
+
+
+# Read random Encounter menu
+
+def read_random_enc_menu():
+    """Menu for reading a random encounters"""
+
+    loc_choice = int(input('Choose one location for the encounter: '))
+    time_choice = int(input('Choose time (1, 2, 3): '))
+    weather_choice = int(input('Choose weather: '))
+
+    read_random_encounter(loc_id=loc_choice, time_id=time_choice, weather_id=weather_choice)
+
+
 
 
 def main_menu() -> None:
@@ -280,6 +314,7 @@ def main_menu() -> None:
 # ### menu dicts ###
 
 main_menu_dict = {
+    1: read_random_enc_menu,
     2: encounter_menu,
     3: location_menu,
     4: weather_menu,
@@ -305,6 +340,7 @@ weather_dict = {
 
 encounter_dict = {
     1: print_all_entities,
+    2: add_encounter_menu,
     5: delete_all_encounter_menu
 }
 

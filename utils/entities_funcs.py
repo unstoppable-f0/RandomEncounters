@@ -25,6 +25,6 @@ def get_all_entities_ids_and_print(entity: Type[SQLEntity]) -> list[int]:
 
     for loc in all_locs:
         print(f'{loc.id}. {loc.name}')
-    print('\n')
+    print('')
 
     return all_locs_ids

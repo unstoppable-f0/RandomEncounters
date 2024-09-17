@@ -1,10 +1,10 @@
-from sqlalchemy import delete, update, text
+from sqlalchemy import select, delete, update, text, any_
 from typing import Type
 
 from sqlalchemy.orm import sessionmaker
 
 from db.connector import engine
-from db.tables import SQLEntity
+from db.tables import SQLEntity, Encounter
 
 
 Session = sessionmaker(bind=engine)
@@ -51,3 +51,19 @@ def delete_all_entities(entity: Type[SQLEntity]) -> None:
         stmt = text(f"""TRUNCATE TABLE random_encs.public.{table_name}""")
         session.execute(stmt)
         session.commit()
+
+
+def read_random_encounter(loc_id: int, time_id: int, weather_id: int):
+    """Gets a random Encounter from the database."""
+
+    with Session() as session:
+
+        # somehow PyCharm thinks that any_(...) - is a wrong expression. idk, can make a ticket to JetBrains
+        stmt = select(Encounter).where(Encounter.time == time_id,
+                                       any_(Encounter.locations) == loc_id,
+                                       any_(Encounter.weather) == weather_id,
+                                       )
+
+        result = session.execute(stmt)
+        for i in result:
+            print(i)

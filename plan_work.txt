@@ -2,4 +2,21 @@
 
 0) Remake singular sql_queries into common 
 
-1) 
+1) get_all_locs:
+	1) sql_
+	2) loc_funcs
+
+
+2) Add encs. - done
+
+3) Rondomize (get) an encounter 
+
+How to randomize it? 
+
+
+0) Choose location(len=1). Get all locs -> then choose 
+1) Choose time (len=1). Print all
+2) Choose weather (len=1). Print all 
+
+sql_querry (personal?)
+
