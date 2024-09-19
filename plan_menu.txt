@@ -1,0 +1,55 @@
+# 1 - get an encounter
+
+# 2 - make new encounter
+    # -- creation process --
+
+# 3 - work with encounters  
+    # 1 -- get all
+    # 2 -- change
+    # 3 -- delete
+    # 4 -- delete all
+    # 5 -- back
+
+# 4 - work with locations
+    # 1 -- get all
+    # 2 -- change
+    # 3 -- delete
+    # 4 -- delete all
+    # 5 -- back
+
+# 5 - work with weather
+    # 1 -- get all
+    # 2 -- change
+    # 3 -- delete
+    # 4 -- delete all
+    # 5 -- back
+
+# 6 - exit
+
+
+I should save states of meny somehow - so I wouldn't go back to the main menu every time 
+Some _ class MenuState _ - or something like that (another dict?)
+
+
+
+add_new_encounter: 
+
+0) name -> just enter a string 
+1) enter link (or an empty string)
+2) time:
+    1 - day 
+    2 - night 
+    3 - both 
+
+3) locations: 
+    <-- list of all locations --> 
+    choose locations to enter:  - number separated by space
+
+4) choose weather
+
+    <-- list of all weather --> 
+
+5) prerequisites: 
+    any? Think of a way to create sql-quaries via natural language 
+
+6) 
