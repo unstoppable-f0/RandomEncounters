@@ -1,6 +1,6 @@
-from sqlalchemy import select, delete, update, text, any_
 from typing import Type
 
+from sqlalchemy import select, delete, update, text, any_, or_
 from sqlalchemy.orm import sessionmaker
 
 from db.connector import engine
@@ -53,17 +53,17 @@ def delete_all_entities(entity: Type[SQLEntity]) -> None:
         session.commit()
 
 
-def read_random_encounter(loc_id: int, time_id: int, weather_id: int):
+def read_random_encounter(loc_id: int, time_id: int, weather_id: int) -> list[Encounter]:
     """Gets a random Encounter from the database."""
 
     with Session() as session:
-
         # somehow PyCharm thinks that any_(...) - is a wrong expression. idk, can make a ticket to JetBrains
-        stmt = select(Encounter).where(Encounter.time == time_id,
+        stmt = select(Encounter).where(or_(Encounter.time == time_id, Encounter.time == 3),
                                        any_(Encounter.locations) == loc_id,
                                        any_(Encounter.weather) == weather_id,
+                                       Encounter.done == False
                                        )
-
         result = session.execute(stmt)
-        for i in result:
-            print(i)
+
+        fitting_encounters: list[Encounter] = [result[0] for result in result]
+        return fitting_encounters

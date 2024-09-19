@@ -21,7 +21,10 @@ class Location(Base):
     name: Mapped[str] = mapped_column(String(255))
 
     def __repr__(self):
-        return f"Locations(id={self.id!r}, loc_name={self.name!r}"
+        return f"Locations(id={self.id!r}, loc_name={self.name!r})"
+
+    def __str__(self):
+        return f"{self.id}. {self.name}"
 
 
 class Weather(Base):
@@ -31,7 +34,10 @@ class Weather(Base):
     name: Mapped[str] = mapped_column(String(255))
 
     def __repr__(self):
-        return f"Weather(id={self.id!r}, weather_name={self.name!r}"
+        return f"Weather(id={self.id!r}, weather_name={self.name!r})"
+
+    def __str__(self):
+        return f"{self.id}. {self.name}"
 
 
 class Encounter(Base):
@@ -47,6 +53,17 @@ class Encounter(Base):
     prerequisites: Mapped[str] = mapped_column(String(255), nullable=True)
 
     def __repr__(self):
-        return (f"Encounters(id={self.id!r}, enc_name={self.name!r}, link={self.link!r}, time={self.time!r}),"
+        return (f"Encounters(id={self.id!r}, enc_name={self.name!r}, link={self.link!r}, time={self.time!r},"
                 f" locations={self.locations!r}, weather={self.weather!r}, done={self.done!r},"
-                f" prerequisites={self.prerequisites!r}")
+                f" prerequisites={self.prerequisites!r})")
+
+    def __str__(self):
+
+        return (f"\n{self.id}. {self.name}. Link: {self.link if self.link != '' else 'None'}."
+                f"\nLocations: {self.locations}; Weather: {self.weather}; Time: {self.time};"
+                f"\nDone: {self.done}; Prerequisites: {self.prerequisites}"
+                f"\n{'=' * 45}")
+
+
+
+
