@@ -105,6 +105,7 @@ def create_encounter_menu() -> None:
 
     # prerequisites-part
     # TODO prerequisites-part
+    new_encounter.prerequisites = input('Insert prerequisites for the encounter: ')
 
     create_entity(new_encounter)
     print('Encounter added successfully!\n')
