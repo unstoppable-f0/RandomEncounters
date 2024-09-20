@@ -27,3 +27,17 @@ sql_querry (personal?)
 0) get (randomize) encounters !
 
 1) __str__ && __repr__
+
+
+2) future -> complete all set of CRUD functions for encounters 
+
+--20/9/24
+
+change_encounter
+
+0) name
+1) link
+2) time (1/ 2/ 3)
+3) locations (how to add or remove?)
+4) weather (how to add or remove? )
+5) done - should be able to change it too 

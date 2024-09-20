@@ -113,7 +113,35 @@ def create_encounter_menu() -> None:
 def update_encounter_menu() -> None:
     """Updates an encounter in the Encounters tables of DB."""
 
-    user_choice = input('What do you want to change?')
+    encounter_ids = get_all_entities_ids_and_print(Encounter)
+    encounter_choice_id = int(input('Choose which encounter you want to change: '))
+    if encounter_choice_id not in encounter_ids:
+        print('No encounter with such value. Returning to encounters-menu')
+        return
+
+    user_choice = input('What do you want to change?'
+                        '\n1 - Change name'
+                        '\n2 - Change link'
+                        '\n3 - Change time'
+                        '\n4 - Change weather'
+                        '\n5 - Change locations'
+                        '\n6 - Change completion status'
+                        '\n7 - Change Prerequisites'
+                        '\n8 - Return to encounters-menu'
+                        '\nYour input (if want to change several, enter number divided by space): ')
+    user_choice_list = user_choice.split()
+
+    if '8' in user_choice_list:
+        print('Number "8" found. Returning to encounters menu')
+        return
+
+    new_params = {}
+    for usr_choice in user_choice_list:
+        param = update_encounter_dict.get(usr_choice, None)
+        if param == 'link':
+            new_params[param] = input(f'Enter new link')
+
+    update_entity(Encounter, encounter_choice_id, new_params)
 
 
 def delete_all_encounter_menu() -> None:
@@ -180,6 +208,16 @@ def read_random_enc_menu():
         else:
             print('Invalid input. Please, try again')
 
+
+update_encounter_dict = {
+    '1': 'name',
+    '2': 'link',
+    '3': 'time',
+    '4': 'weather',
+    '5': 'locations',
+    '6': 'done',
+    '7': 'prerequisites'
+}
 
 encounter_dict = {
     1: print_all_entities,
