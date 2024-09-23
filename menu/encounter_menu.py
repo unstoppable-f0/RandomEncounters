@@ -2,6 +2,7 @@ from random import choice
 
 from db.tables import Location, Weather, Encounter
 from db.sql_queries import (
+    read_an_entity,
     create_entity,
     update_entity,
     delete_entity,
@@ -9,6 +10,7 @@ from db.sql_queries import (
     read_random_encounter
 )
 
+from utils.encounter_auxiliary_funcs import update_encounter_dict
 from utils.entities_funcs import print_all_entities, get_all_entities_ids_and_print
 
 
@@ -74,7 +76,7 @@ def create_encounter_menu() -> None:
         return
 
     if set(all_locs_ids).issuperset(set(user_locs)) and len(user_locs) >= 1:
-        new_encounter.locations = map(int, user_locs)
+        new_encounter.locations = user_locs
         print('Got the locations')
     else:
         print('Wrong input. Returning to main menu')
@@ -120,6 +122,10 @@ def update_encounter_menu() -> None:
         print('No encounter with such value. Returning to encounters-menu')
         return
 
+    chosen_encounter = read_an_entity(encounter_choice_id, Encounter)
+
+    print(chosen_encounter.__dict__)
+
     user_choice = input('What do you want to change?'
                         '\n1 - Change name'
                         '\n2 - Change link'
@@ -130,19 +136,20 @@ def update_encounter_menu() -> None:
                         '\n7 - Change Prerequisites'
                         '\n8 - Return to encounters-menu'
                         '\nYour input (if want to change several, enter number divided by space): ')
-    user_choice_list = user_choice.split()
-
-    if '8' in user_choice_list:
-        print('Number "8" found. Returning to encounters menu')
+    try:
+        user_choice_list = list(map(int, user_choice.split()))
+    except ValueError:
+        print('Invalid input. Returning to encounters-menu')
         return
 
-    new_params = {}
-    for usr_choice in user_choice_list:
-        param = update_encounter_dict.get(usr_choice, None)
-        if param == 'link':
-            new_params[param] = input(f'Enter new link')
+    if '8' in user_choice_list:
+        print('Returning to encounters menu')
+    for i_choice in user_choice_list:
+        update_encounter_dict[i_choice](chosen_encounter)
 
-    update_entity(Encounter, encounter_choice_id, new_params)
+    update_entity(Encounter, chosen_encounter.id, chosen_encounter.dict_repr(exclude=('id', )))
+    print(f'Encounter updated successfully!'
+          f'\n{chosen_encounter}')
 
 
 def delete_all_encounter_menu() -> None:
@@ -210,18 +217,9 @@ def read_random_enc_menu():
             print('Invalid input. Please, try again')
 
 
-update_encounter_dict = {
-    '1': 'name',
-    '2': 'link',
-    '3': 'time',
-    '4': 'weather',
-    '5': 'locations',
-    '6': 'done',
-    '7': 'prerequisites'
-}
-
 encounter_dict = {
     1: print_all_entities,
     2: create_encounter_menu,
+    3: update_encounter_menu,
     5: delete_all_encounter_menu
 }
