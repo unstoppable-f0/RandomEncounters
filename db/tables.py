@@ -64,6 +64,20 @@ class Encounter(Base):
                 f"\nDone: {self.done}; Prerequisites: {self.prerequisites}"
                 f"\n{'=' * 45}")
 
+    def dict_repr(self, exclude: tuple[str] = None) -> dict:
+        """Returns a dictionary representation of the object."""
 
+        full_dict = {'id': self.id,
+                     'name': self.name,
+                     'link': self.link,
+                     'time': self.time,
+                     'locations': self.locations,
+                     'weather': self.weather,
+                     'done': self.done,
+                     'prerequisites': self.prerequisites}
 
+        if exclude:
+            for exclusion in exclude:
+                full_dict.pop(exclusion, None)
 
+        return full_dict

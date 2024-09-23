@@ -10,6 +10,14 @@ from db.tables import SQLEntity, Encounter
 Session = sessionmaker(bind=engine)
 
 
+def read_an_entity(id_: int, entity_type: Type[SQLEntity]) -> SQLEntity:
+    """Read an entity and return it."""
+
+    with Session() as session:
+        fetched_entity = session.get(entity_type, id_)
+        return fetched_entity
+
+
 def read_all_entities_by_type(entity: Type[SQLEntity]) -> list[Type[SQLEntity]]:
     with Session() as session:
         all_locs = session.query(entity).all()
