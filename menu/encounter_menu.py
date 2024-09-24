@@ -152,6 +152,21 @@ def update_encounter_menu() -> None:
           f'\n{chosen_encounter}')
 
 
+def delete_encounter_menu() -> None:
+    """Delete one encounter from the Encounters tables of DB."""
+
+    all_encounter_ids = get_all_entities_ids_and_print(Encounter)
+    try:
+        encounter_id = int(input("Enter the encounter's id to delete: "))
+        if encounter_id in all_encounter_ids:
+            delete_entity(Encounter, encounter_id)
+            print("The encounter deleted successfully. Going back to the locations menu")
+        else:
+            print('No encounter with such id was found. Going back to the locations menu\n')
+    except ValueError:
+        print("Invalid input. Going back to the encounters menu")
+
+
 def delete_all_encounter_menu() -> None:
     """Deleting all rows of encounters"""
 
