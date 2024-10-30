@@ -1,0 +1,11 @@
+[project]
+name = "randomencounters"
+version = "0.1.0"
+description = "Random Encounters for your TTRPGs!"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg>=3.2.3",
+    "psycopg-binary==3.2.1",
+    "sqlalchemy==2.0.34",
+]
