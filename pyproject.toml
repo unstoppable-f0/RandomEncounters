@@ -8,4 +8,5 @@ dependencies = [
     "psycopg>=3.2.3",
     "psycopg-binary==3.2.1",
     "sqlalchemy==2.0.34",
+    "python-dotenv>=1.0.1",
 ]
