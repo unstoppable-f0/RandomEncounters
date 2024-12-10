@@ -210,7 +210,8 @@ def read_random_enc_menu():
                 print()
             except IndexError:
                 print(f'\nThese were all the encounters for your options'
-                      f'\nLast Encounter: {enc_choice}')
+                      f'\nLast Encounter: {enc_choice}\n')
+
                 user_choice = input('Do you want this last encounter? (y - yes//r - return to menu): ')
 
                 if user_choice == 'y':

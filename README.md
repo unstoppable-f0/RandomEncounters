@@ -7,4 +7,4 @@ Create different types of weather, locations, encounters itself (even make a lin
 First stages of development: old good console UI 
 Second stages: self-hosted site based of FastAPI (and some drafts from bootstrap ;)
 
-Requirements: python3.12 
+Requirements: python 3.12 
