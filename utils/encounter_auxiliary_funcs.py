@@ -77,7 +77,7 @@ def update_encounter_weather(encounter: Encounter) -> None:
 def update_encounter_status(encounter: Encounter) -> None:
     """Update the status of the encounter."""
 
-    print(f'Curren encounter status is {"ACTIVE" if encounter.done else "FINISHED"}')
+    print(f'Curren encounter status is {"FINISHED" if encounter.done else "ACTIVE"}')
     user_choice = input('Do you want to change the status of the encounter? (y/n): ')
     if user_choice == 'y':
         encounter.done = not encounter.done
